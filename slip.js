@@ -102,9 +102,16 @@
     USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-window['Slip'] = (function(){
+(function (factory) {
     'use strict';
-
+    if ( typeof define === 'function' && define.amd ) {
+        define(factory);
+    } else if ( typeof module != 'undefined' && typeof module.exports != 'undefined' ) {
+        module.exports = factory();
+    } else {
+        window['Slip'] = factory();
+    }
+})(function () {
     var damnYouChrome = /Chrome\/[34]/.test(navigator.userAgent); // For bugs that can't be programmatically detected :( Intended to catch all versions of Chrome 30-40
     var needsBodyHandlerHack = damnYouChrome; // Otherwise I _sometimes_ don't get any touchstart events and only clicks instead.
 
@@ -323,12 +330,12 @@ window['Slip'] = (function(){
                         var move = this.getAbsoluteMovement();
                         var swiped = velocity > 0.6 && move.time > 110;
 
-						var direction;
-						if (dx > 0) {
-							direction = "right";
-						} else {
-							direction = "left";
-						}
+                        var direction;
+                        if (dx > 0) {
+                            direction = "right";
+                        } else {
+                            direction = "left";
+                        }
 
                         if (swiped) {
                             if (this.dispatch(this.target.node, 'swipe', {direction: direction, originalIndex: originalIndex})) {
@@ -779,13 +786,5 @@ window['Slip'] = (function(){
             }.bind(this), 101);
         },
     };
-
-    // AMD
-    if ('function' === typeof define && define.amd) {
-        define(function(){
-            return Slip;
-        });
-    }
     return Slip;
-})();
-
+});
