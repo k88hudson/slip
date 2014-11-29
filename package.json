@@ -1,0 +1,11 @@
+{
+  "name": "slip",
+  "version": "0.0.0",
+  "description": "A tiny library for interactive swiping and reordering of elements in lists on touch screens. No dependencies. BSD Licensed.",
+  "main": "slip.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/k88hudson/slip.git"
+  },
+  "author": ""
+}
